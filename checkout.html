@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Basic styling for the Checkout page */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #002f34;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+    }
+
+    .header-button {
+      background-color: #18de0d;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+      text-decoration: none;
+    }
+
+    .header-button:hover {
+      background-color: #38da1c;
+    }
+
+    .container {
+      width: 80%;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #002f34;
+      margin-bottom: 20px;
+    }
+
+    .cart-items-list {
+      margin-bottom: 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .cart-item img {
+      width: 50px;
+      height: auto;
+      margin-right: 10px;
+    }
+
+    .cart-item .item-details {
+      flex-grow: 1;
+    }
+
+    .cart-item .item-price {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .remove-btn {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      height: 30px;
+    }
+
+    .remove-btn:hover {
+      background-color: #c0392b;
+    }
+
+    .checkout-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .checkout-footer .total {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .checkout-footer .confirm-btn {
+      background-color: #18de0d;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .checkout-footer .confirm-btn:hover {
+      background-color: #38da1c;
+    }
+  </style>
+  <script>
+    let cart = [];
+
+    // Function to update the cart display
+    function updateCart() {
+      const cartItemsList = document.getElementById('cart-items-list');
+      const cartTotal = document.getElementById('cart-total');
+      cartItemsList.innerHTML = ''; // Clear existing items
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+        
+        cartItem.innerHTML = `
+          <div class="item-details">
+            <h4>${item.name}</h4>
+            <p>Quantity: ${item.quantity}</p>
+          </div>
+          <div class="item-price">₹${item.price * item.quantity}</div>
+          <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+        `;
+        
+        cartItemsList.appendChild(cartItem);
+        total += item.price * item.quantity;
+      });
+
+      cartTotal.textContent = `Total: ₹${total}`;
+    }
+
+    // Function to handle removing an item from the cart
+    function removeItem(index) {
+      cart.splice(index, 1); // Remove the item at the given index
+      updateCart();
+      localStorage.setItem('cart', JSON.stringify(cart)); // Save the updated cart to localStorage
+    }
+
+    // Load cart from localStorage when the page loads
+    window.onload = function() {
+      const savedCart = JSON.parse(localStorage.getItem('cart'));
+      if (savedCart) {
+        cart = savedCart;
+        updateCart();
+      }
+    }
+
+  </script>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <h1>Checkout</h1>
+    <a href="wash-iron-products.html" class="header-button">Back to Wash & Iron</a>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h2>Your Cart</h2>
+
+    <div id="cart-items-list" class="cart-items-list">
+      <!-- Cart items will be populated here dynamically -->
+    </div>
+
+    <div class="checkout-footer">
+      <div class="total" id="cart-total">Total: ₹0</div>
+      <button class="confirm-btn" onclick="location.href='order-success.html'">Confirm Order</button>
+    </div>
+  </div>
+
+</body>
+</html>

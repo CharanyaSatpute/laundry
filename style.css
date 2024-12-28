@@ -1,10 +1,12 @@
 /* Global Styles */
-/* Global Styles */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f9f9f9;
+  background-image: url('c:\Users\Vishnuvardhan\Desktop\back.jpg'); /* Replace with your image URL */
+  background-size: cover;
+  background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,32 +14,7 @@ body {
   flex-direction: column;
   text-align: center;
   position: relative;
-  overflow: hidden; /* Prevent scrolling caused by the moving background */
-}
-
-/* Moving Background Image */
-body::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('https://via.placeholder.com/1500'); /* Replace with your image URL */
-  background-size: cover;
-  background-position: center;
-  z-index: -1; /* Ensures the background is behind other content */
-  animation: moveBackground 30s linear infinite; /* Animation to move the background */
-}
-
-/* Keyframes for moving the background */
-@keyframes moveBackground {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 100% 100%;
-  }
+  overflow: hidden; /* Prevent scrolling caused by the background */
 }
 
 /* Heading Style */
@@ -63,6 +40,12 @@ h1 {
   margin: 10px;
   font-weight: bold;
   transition: background-color 0.3s ease;
+}
+.cart-item img {
+  width: 50px;
+  height: auto;
+  border-radius: 5px; /* Optional for aesthetics */
+  margin-right: 10px;
 }
 
 .landing-button:hover {
@@ -273,7 +256,6 @@ footer a:hover {
   color: #e63939;
 }
 
-
 /* Service Block - Fix for clickable link without affecting layout */
 a.service-link {
   text-decoration: none;   /* Remove underline from links */
@@ -349,25 +331,6 @@ a.service-link {
 }
 
 /* Corrected CSS */
-
-.wash-and-iron-products {
-  margin-bottom: 20px;
-  font-size: 1.5em;
-  color: #002f34;
-}
-
-.wash-and-iron-products-button {
-  background-color: #18de0d;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
-  text-decoration: none;
-}
-
 .service p {
   font-size: 1.1em;
   color: #555;
@@ -376,31 +339,4 @@ a.service-link {
 .service:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Hover effect */
   transform: translateY(-5px); /* Hover effect for slight lift */
-}
-
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .category, .listing {
-    width: calc(50% - 20px);
-  }
-}
-
-@media (max-width: 480px) {
-  .category, .listing {
-    width: 100%;
-  }
-
-  header {
-    flex-wrap: wrap;
-    text-align: center;
-  }
-
-  header nav button {
-    margin-top: 10px;
-  }
-
-  .search-bar input, .search-bar select {
-    width: 100%;
-  }
 }

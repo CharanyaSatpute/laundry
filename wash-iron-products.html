@@ -56,15 +56,15 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      gap: 10px; /* Reduced gap between products */
+      gap: 10px;
     }
 
     .service-item {
       background-color: #fff;
       border: 1px solid #ddd;
       border-radius: 10px;
-      padding: 1px; /* Reduced padding for less spacing */
-      width: calc(33% - 10px); /* Adjusted width to account for less space */
+      padding: 1px;
+      width: calc(33% - 10px);
       text-align: center;
       transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
@@ -97,6 +97,30 @@
       margin-top: 10px;
     }
 
+    .quantity-select {
+      padding: 3px 8px;
+      font-size: 14px;
+      margin-top: 10px;
+      width: 20%;
+      border-radius: 5px;
+    }
+
+    .add-to-cart-btn {
+      background-color: #18de0d;
+      color: white;
+      padding: 5px 8px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .add-to-cart-btn:hover {
+      background-color: #38da1c;
+    }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -114,27 +138,146 @@
       text-decoration: underline;
     }
 
+    /* Cart Section */
+    .cart-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 300px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      border-radius: 10px;
+    }
+
+    .cart-container h2 {
+      margin-top: 0;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .cart-item img {
+      width: 50px;
+      height: auto;
+      margin-right: 10px;
+    }
+
+    .cart-item .item-details {
+      flex-grow: 1;
+    }
+
+    .cart-item .item-price {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .cart-footer {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .cart-footer .total {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .cart-footer .checkout-btn {
+      background-color: #18de0d;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .cart-footer .checkout-btn:hover {
+      background-color: #38da1c;
+    }
+
     /* Responsive Design */
     @media (max-width: 768px) {
       .service-item {
-        width: calc(50% - 10px); /* Two items per row on medium screens */
+        width: calc(50% - 10px);
       }
     }
 
     @media (max-width: 480px) {
       .service-item {
-        width: 100%; /* One item per row on small screens */
+        width: 100%;
       }
     }
   </style>
+  <script>
+    let cart = [];
+
+    // Function to update the cart display
+    function updateCart() {
+      const cartItemsList = document.getElementById('cart-items-list');
+      const cartTotal = document.getElementById('cart-total');
+      cartItemsList.innerHTML = ''; 
+      let total = 0;
+
+      cart.forEach(item => {
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+        
+        cartItem.innerHTML = `
+          <div class="item-details">
+            <h4>${item.name}</h4>
+            <p>Quantity: ${item.quantity}</p>
+          </div>
+          <div class="item-price">₹${item.price * item.quantity}</div>
+        `;
+        
+        cartItemsList.appendChild(cartItem);
+        total += item.price * item.quantity;
+      });
+
+      cartTotal.textContent = `Total: ₹${total}`;
+    }
+
+    // Function to handle adding products to the cart
+    function addToCart(product, price, quantityId, image) {
+      let quantity = parseInt(document.getElementById(quantityId).value);
+      if (quantity > 0) {
+        const existingItemIndex = cart.findIndex(item => item.name === product);
+        if (existingItemIndex !== -1) {
+          cart[existingItemIndex].quantity += quantity;
+        } else {
+          cart.push({ name: product, price: price, quantity: quantity, image: image });
+        }
+        updateCart();
+        localStorage.setItem('cart', JSON.stringify(cart)); // Save to localStorage
+      } else {
+        alert("Please select a quantity.");
+      }
+    }
+
+    // Load cart from localStorage when the page loads
+    window.onload = function() {
+      const savedCart = JSON.parse(localStorage.getItem('cart'));
+      if (savedCart) {
+        cart = savedCart;
+        updateCart();
+      }
+    }
+  </script>
 </head>
 <body>
 
   <!-- Header Section -->
   <header>
     <h1>Wash & Iron Services</h1>
-    <!-- Button to go to "Laundry with Us" page -->
-    <a href="laundry-with-us.html" class="header-button">Laundry with Us</a>
+    <a href="laundry-with-us.html" class="header-button">Main Page</a>
   </header>
 
   <!-- Main Content -->
@@ -144,65 +287,109 @@
     <div class="service-list">
       <!-- Product 1 -->
       <div class="service-item">
-        <img src="c:\Users\Vishnuvardhan\Desktop\shirt  t-shirt.jpg" alt="Shirt/T-shirt">
+        <img src="./assets/tshirts.jpeg" alt="Shirt/T-shirt">
         <h3>Shirt/T-shirt</h3>
         <p>Perfectly ironed shirts or T-shirts, ready for any occasion.</p>
         <div class="price">₹45</div>
+        <select class="quantity-select" id="product1-quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button class="add-to-cart-btn" onclick="addToCart('Shirt/T-shirt', 45, 'product1-quantity')">Add to Cart</button>
       </div>
 
       <!-- Product 2 -->
       <div class="service-item">
-        <img src="c:\Users\Vishnuvardhan\Desktop\pant.jpg" alt="Pant, Pyjama or Jeans">
-        <h3>Pant, Pyjama or Jeans</h3>
-        <p>Get your pants, pyjamas, or jeans looking crisp and neat.</p>
-        <div class="price">₹55</div>
+        <img src="./assets/shirts.jpeg" alt="Formal Shirt">
+        <h3>Formal Shirt</h3>
+        <p>Wash and iron for your formal shirts, looking sharp for the office.</p>
+        <div class="price">₹60</div>
+        <select class="quantity-select" id="product2-quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button class="add-to-cart-btn" onclick="addToCart('Formal Shirt', 60, 'product2-quantity')">Add to Cart</button>
       </div>
 
       <!-- Product 3 -->
       <div class="service-item">
-        <img src="c:\Users\Vishnuvardhan\Desktop\kurthi.jpg" alt="Kurta/Kurti">
-        <h3>Kurta/Kurti</h3>
-        <p>Delicate care for your traditional wear, ensuring perfect results.</p>
-        <div class="price">₹50</div>
+        <img src="./assets/paints.jpeg" alt="Jeans">
+        <h3>Jeans</h3>
+        <p>Wash and iron your jeans for a crisp and fresh look.</p>
+        <div class="price">₹75</div>
+        <select class="quantity-select" id="product3-quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button class="add-to-cart-btn" onclick="addToCart('Jeans', 75, 'product3-quantity')">Add to Cart</button>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="service-item">
+        <img src="./assets/kurtis.jpeg" alt="Kurti">
+        <h3>Kurti</h3>
+        <p>Wash and iron for a perfect fit Kurti.</p>
+        <div class="price">₹80</div>
+        <select class="quantity-select" id="product4-quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button class="add-to-cart-btn" onclick="addToCart('Kurti', 80, 'product4-quantity')">Add to Cart</button>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="service-item">
+        <img src="./assets/Baniyans.jpeg" alt="Blouse">
+        <h3>Baniyans</h3>
+        <p>Ensure your baniyans is clean and perfectly ironed.</p>
+        <div class="price">₹70</div>
+        <select class="quantity-select" id="product5-quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button class="add-to-cart-btn" onclick="addToCart('Baniyans', 70, 'product5-quantity')">Add to Cart</button>
       </div>
 
       <!-- Product 6 -->
       <div class="service-item">
-        <img src="c:\Users\Vishnuvardhan\Desktop\bedhsheets.jpg" alt="Bedsheet (Single)">
-        <h3>Bedsheet (Single)</h3>
-        <p>Iron your single bedsheets to ensure smooth and neat finishing.</p>
-        <div class="price">₹60</div>
+        <img src="./assets/blankets.jpeg" alt="Saree">
+        <h3>blankets</h3>
+        <p>Get your blankets washed and ironed for a graceful look.</p>
+        <div class="price">₹150</div>
+        <select class="quantity-select" id="product6-quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button class="add-to-cart-btn" onclick="addToCart('blankets', 150, 'product6-quantity')">Add to Cart</button>
       </div>
+    </div>
+  </div>
 
-      <!-- Product 7 -->
-      <div class="service-item">
-        <img src="c:\Users\Vishnuvardhan\Desktop\pillow.jpg" alt="Pillow or Cushion Cover">
-        <h3>Pillow or Cushion Cover</h3>
-        <p>Carefully iron your pillow or cushion covers for a fresh look.</p>
-        <div class="price">₹40</div>
-      </div>
-<!-- Product 5 -->
-<div class="service-item">
-    <img src="c:\Users\Vishnuvardhan\Desktop\banyan.jpg" alt="Banyan or Inner">
-    <h3>Banyan or Inner</h3>
-    <p>For delicate innerwear, we provide careful ironing to keep it intact.</p>
-    <div class="price">₹25</div>
-  </div>
-   <!-- Product 4 -->
-   <div class="service-item">
-    <img src="c:\Users\Vishnuvardhan\Desktop\shorts.jpg" alt="Shorts">
-    <h3>Shorts</h3>
-    <p>Iron your casual shorts and get them looking fresh and smooth.</p>
-    <div class="price">₹30</div>
-  </div>
-      <!-- Product 8 -->
-      <div class="service-item">
-        <img src="c:\Users\Vishnuvardhan\Desktop\napkin.jpg" alt="Napkin or Handkerchief">
-        <h3>Napkin or Handkerchief</h3>
-        <p>Get your napkins or handkerchiefs perfectly pressed and wrinkle-free.</p>
-        <div class="price">₹35</div>
-        
-      </div>
+  <!-- Cart Section -->
+  <div class="cart-container">
+    <h2>Your Cart</h2>
+    <div id="cart-items-list"></div>
+    <div class="cart-footer">
+      <div class="total" id="cart-total">Total: ₹0</div>
+      <button class="checkout-btn" onclick="location.href='checkout.html'">Proceed to Checkout</button>
     </div>
   </div>
 
