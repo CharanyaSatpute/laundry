@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laundry with Other Entities</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f3f3f3;
+      color: #333;
+      text-align: center;
+    }
+
+    /* Header Styles */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #002f34;
+      color: white;
+      padding: 10px 20px;
+    }
+
+    header .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    header nav a {
+      color: white;
+      margin-left: 15px;
+      text-decoration: none;
+      font-size: 1.1em;
+    }
+
+    header nav a:hover {
+      text-decoration: underline;
+    }
+     /* Footer Styles */
+     footer {
+      text-align: center;
+      padding: 20px;
+      background: #002f34;
+      color: rgb(238, 239, 238);
+    }
+
+    footer p {
+      margin: 5px 0;
+    }
+
+    footer a {
+      color: #14e014;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main Content Styles */
+    h1 {
+      margin: 20px 0;
+      font-size: 28px;
+      color: #444;
+    }
+
+    /* Carousel Styles */
+    .carousel {
+      position: relative;
+      width: 80%;
+      margin: 20px auto;
+      overflow: hidden;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.3s ease-in-out; /* Faster transition */
+    }
+
+    .carousel-item {
+      min-width: 100%;
+      padding: 40px 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #4CAF50;
+    }
+
+    /* Carousel Controls */
+    .carousel-controls {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .carousel-button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .carousel-button:hover {
+      background-color: #45a049;
+    }
+
+    .back-button {
+      margin-top: 20px;
+      display: inline-block;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .back-button:hover {
+      background-color: #45a049;
+    }
+
+    /* Entity Details Section */
+    .entities {
+      padding: 20px;
+      background-color: #ffffff;
+    }
+
+    .entity {
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 10px;
+      background: #f4f4f4;
+    }
+
+    .entity h2 {
+      margin: 10px 0;
+      font-size: 1.5em;
+      color: #333;
+    }
+
+    .entity p {
+      font-size: 1.1em;
+      color: #777;
+    }
+
+    .entity .location {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">Laundry Marketplace</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="laundry-with-us.html">Laundry With Us</a>
+      <a href="our-services.html">Our Services</a>
+      <a href="contact-us.html">Contact Us</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <h1>Laundry with Other Entities</h1>
+
+  <!-- Carousel Container -->
+  <div class="carousel">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-item">Fabo Services</div>
+      <div class="carousel-item">Laundry India</div>
+      <div class="carousel-item">Laundry 4 U</div>
+      <div class="carousel-item">Some Laundries</div>
+    </div>
+  </div>
+
+  <!-- Carousel Controls -->
+  <div class="carousel-controls">
+    <button class="carousel-button" id="prevButton">Previous</button>
+    <button class="carousel-button" id="nextButton">Next</button>
+  </div>
+
+  <!-- Entities Section -->
+  <div class="entities">
+    <div class="entity">
+      <h2>Fabo Services</h2>
+      <p class="location">Location: Mumbai, Maharashtra</p>
+      <p>Fabo Services offers high-quality laundry and dry cleaning services across Mumbai. Their special services include stain removal and premium fabric care.</p>
+    </div>
+
+    <div class="entity">
+      <h2>Laundry India</h2>
+      <p class="location">Location: Delhi, Delhi</p>
+      <p>Laundry India is known for its fast and affordable laundry services with pick-up and drop-off facilities available across Delhi. They also offer eco-friendly detergent options.</p>
+    </div>
+
+    <div class="entity">
+      <h2>Laundry 4 U</h2>
+      <p class="location">Location: Bangalore, Karnataka</p>
+      <p>Laundry 4 U provides next-day laundry services with a focus on providing excellent customer satisfaction. They have a subscription model for regular laundry needs.</p>
+    </div>
+
+    <div class="entity">
+      <h2>Some Laundries</h2>
+      <p class="location">Location: Chennai, Tamil Nadu</p>
+      <p>Some Laundries is a budget-friendly laundry service with reliable and timely delivery. They offer specialized services such as wash & fold and dry cleaning for delicate items.</p>
+    </div>
+  </div>
+
+  <!-- Back to Home Button -->
+  <a href="index.html" class="back-button">Back to Home</a>
+
+  <script>
+    const track = document.getElementById("carouselTrack");
+    const prevButton = document.getElementById("prevButton");
+    const nextButton = document.getElementById("nextButton");
+    let currentIndex = 0;
+
+    // Move carousel to the current index
+    function updateCarousel() {
+      const width = track.offsetWidth / track.children.length;
+      track.style.transform = `translateX(-${currentIndex * width}px)`;
+    }
+
+    // Event listeners for carousel buttons
+    prevButton.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + track.children.length) % track.children.length;
+      updateCarousel();
+    });
+
+    nextButton.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % track.children.length;
+      updateCarousel();
+    });
+
+    // Auto-scroll carousel
+    function autoScroll() {
+      currentIndex = (currentIndex + 1) % track.children.length;
+      updateCarousel();
+    }
+
+    // Set auto-scroll interval (faster movement)
+    const autoScrollInterval = setInterval(autoScroll, 2000); // 2 seconds per slide
+
+    // Adjust carousel on window resize
+    window.addEventListener("resize", updateCarousel);
+
+    // Pause auto-scroll on mouseover and resume on mouseout
+    track.addEventListener("mouseover", () => clearInterval(autoScrollInterval));
+    track.addEventListener("mouseout", () => setInterval(autoScroll, 2000));
+  </script>
+</body>
+<footer>
+  <p>&copy; 2024 Laundry Marketplace. All rights reserved.</p>
+  <p><a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a></p>
+  <p>Contact us: <a href="mailto:vishnuvardhan.penta@gmail.com">vishnuvardhan.penta@gmail.com</a> | Mobile: +91 9848022338</p>
+  <p>Follow us on <a href="https://instagram.com/laundrymarketplace" target="_blank">Instagram</a></p>
+</footer>
+</html>
